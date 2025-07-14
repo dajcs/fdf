@@ -24,11 +24,11 @@ cd ..
 cd .test
 cc hello_world.c -I../minilibx-linux -L../minilibx-linux -lmlx -lXext -lX11 -lm -lbsd
 
-cc test.c -I../minilibx-linux \       # include directory of the header file mlx.h
-   -L../minilibx-linux -lmlx \        # Lib directory `minilibx-linux`, the archive: libmlx.a
-   -lXext -lX11 \                  # X-window routines MiniLibX relies on
-   -lm \                           # eventually include the math module
-   -lbsd                           # needed because the Linux port uses a few BSD helper calls
+cc hello_world.c -I../minilibx-linux \       # include directory of the header file mlx.h
+   -L../minilibx-linux -lmlx \               # Lib directory `minilibx-linux`, the archive: libmlx.a
+   -lXext -lX11 \                            # X-window routines MiniLibX relies on
+   -lm \                                     # eventually include the math module (for later)
+   -lbsd                                     # needed because the Linux port uses a few BSD helper calls
 
 on WSL2 / win11 install the missing X dependencies first:
 
