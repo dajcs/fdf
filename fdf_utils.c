@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/15 11:05:16 by anemet            #+#    #+#             */
+/*   Updated: 2025/07/15 13:31:12 by anemet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+
+static int	count_words(char const *s, char c)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i])
+			count++;
+		while (s[i] && s[i] != c)
+			i++;
+	}
+	return (count);
+}
+
+static int	get_map_dimensions(const char *file, t_map *map)
+{
+	char	*line;
+	int		fd;
+	int		height;
+	int		width;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	height = 0;
+	width = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (!width)
+			width = count_words(line, ' ');
+		height++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	map->width = width;
+	map->height = height;
+	return (0);
+}
+
+static void	fill_map(char *line, int *row)
+{
+	char	**split;
+	int		i;
+
+	split = ft_split(line, ' ');
+	i = 0;
+	while (split[i])
+	{
+		row[i] = ft_atoi(split[i]);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+int	read_map(const char *file, t_map *map)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	if (get_map_dimensions(file, map) == -1)
+		return (-1);
+	map->z_grid = (int **)malloc(sizeof(int *) * map->height);
+	if (!map->z_grid)
+		return (-1);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	i = 0;
+	while (i < map->height)
+	{
+		line = get_next_line(fd);
+		map->z_grid[i] = (int *)malloc(sizeof(int) * map->width);
+		if (!map->z_grid[i])
+			return (-1);
+		fill_map(line, map->z_grid[i]);
+		free(line);
+		i++;
+	}
+	close(fd);
+	return (0);
+}
