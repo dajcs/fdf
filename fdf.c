@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 14:50:46 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/15 15:49:55 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	main(int argc, char **argv)
 	fdf.mlx_ptr = mlx_init();
 	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FdF");
 	draw_map(&fdf);
-	mlx_hook(fdf.win_ptr, 17, 0, (int (*)())exit, 0);
-	mlx_key_hook(fdf.win_ptr, (int (*)())exit, 0);
+	mlx_hook(fdf.win_ptr, DESTROY_NOTIFY, NO_MASK, &handle_close, &fdf);
+	mlx_key_hook(fdf.win_ptr, &handle_key_press, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 	return (0);
 }
