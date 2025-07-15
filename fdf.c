@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 10:57:47 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/15 14:50:46 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	main(int argc, char **argv)
 	map.z_grid = NULL;
 	if (read_map(argv[1], &map) == -1)
 		return (1);
+	fdf.map = &map;
 	fdf.mlx_ptr = mlx_init();
 	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FdF");
 	draw_map(&fdf);
