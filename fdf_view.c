@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 18:07:16 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 21:06:10 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static void	calculate_xy_range(t_map *map, t_bounds *bounds)
 void	setup_view(t_fdf *fdf)
 {
 	t_bounds	bounds;
-	double		scale_x;
-	double		scale_y;
+	float		scale_x;
+	float		scale_y;
 
 	calculate_xy_range(fdf->map, &bounds);
 	bounds.width = bounds.max_x - bounds.min_x;

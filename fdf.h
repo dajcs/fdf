@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 18:12:29 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 21:06:10 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_bounds
 
 typedef struct s_view
 {
-	double	scale;
+	float	scale;
 	int		x_offset;
 	int		y_offset;
 }			t_view;

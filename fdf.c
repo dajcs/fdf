@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 16:30:03 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 21:09:16 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 static t_point	project(int x, int y, int z, t_view *view)
 {
 	t_point	p;
-	double	raw_x;
-	double	raw_y;
+	float	raw_x;
+	float	raw_y;
 
 	raw_x = (x - y) * cos(ANGLE);
 	raw_y = (x + y) * sin(ANGLE) - z;
@@ -121,7 +121,7 @@ int	main(int argc, char **argv)
 	fdf.map = &map;
 	setup_view(&fdf);
 	fdf.mlx_ptr = mlx_init();
-	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FdF");
+	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, argv[1]);
 	draw_map(&fdf);
 	mlx_hook(fdf.win_ptr, DESTROY_NOTIFY, NO_MASK, &handle_close, &fdf);
 	mlx_key_hook(fdf.win_ptr, &handle_key_press, &fdf);
