@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 15:49:55 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 13:04:08 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, color);
 }
 
+// dx positive, dy negative, so later comparison of
+//           e2 >= dy and e2 <= dx work for lines in all directions (quadrants)
+// sx - step x, +1 to right, -1 to left
+// sy - step y, +1 to down, -1 to up
+// err - error accumulator, initialized to dx + dy
+// e2 temp var holding 2 * err to keep algorithm in integer domain
+//                            (original Bresenham was err checking against 0.5)
 static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 {
 	int	dx;
@@ -55,12 +62,13 @@ static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 	}
 }
 
+// angle = pi/6 (30 degr)
 static t_point	project(int x, int y, int z)
 {
 	t_point	p;
 	double	angle;
 
-	angle = 0.523599;
+	angle = 0.5235987755982988;
 	p.x = (int)((x - y) * cos(angle));
 	p.y = (int)((x + y) * sin(angle) - z);
 	p.x += WIN_WIDTH / 2;

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 16:04:50 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 11:37:53 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+/*
+Resolution	Aspect	Ratio	Common Name	Main Usage
+800x600
+1024x768	4:3		XGA		Legacy monitors, tablets
+1280x720	16:9	HD		Entry-level monitors, TVs
+1280x1024	5:4		SXGA	Legacy/business monitors
+1440x900	16:10	WXGA+	Mid-range monitors, laptops
+1366x768	16:9	--		Budget/older laptops, displays
+1920x1080	16:9	Full HD	Standard monitors, TVs, laptops
+2560x1440	16:9	QHD		High-end monitors, gaming laptops
+3840x2160	16:9	4K UHD	Premium monitors, TVs, laptops
+*/
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
@@ -42,9 +55,8 @@ KeyPress          2         1L<<0       mlx_key_hook       key pressed down
 KeyRelease        3         1L<<1       (no equivalent)    key was released
 DestroyNotify    17         1L<<17      (no equivalent)    window closed by X
 Expose           12         1L<<15      mlx_expose_hook    part of window
-                                                           needs to be redrawn
+                                                                to be redrawn
 */
-
 
 typedef struct s_point
 {
