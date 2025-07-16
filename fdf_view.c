@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 16:00:27 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 18:07:16 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,12 @@ void	setup_view(t_fdf *fdf)
 		fdf->view->scale = 1;
 	else
 	{
-		scale_x = (WIN_WIDTH * PADDING_FACTOR) / bounds.width;
-		scale_y = (WIN_HEIGHT * PADDING_FACTOR) / bounds.height;
-		fdf->view->scale = min(scale_x, scale_y);
+		scale_x = (WIN_WIDTH * PADDING_FACTOR_X) / bounds.width;
+		scale_y = (WIN_HEIGHT * PADDING_FACTOR_Y) / bounds.height;
+		if (scale_x < scale_y)
+			fdf->view->scale = scale_x;
+		else
+			fdf->view->scale = scale_y;
 	}
 	fdf->view->x_offset = (WIN_WIDTH - (bounds.width * fdf->view->scale)) / 2;
 	fdf->view->y_offset = (WIN_HEIGHT - (bounds.height * fdf->view->scale)) / 2;

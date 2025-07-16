@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 16:39:45 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 18:12:29 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
-# define PADDING_FACTOR 0.8
+# define PADDING_FACTOR_X 0.8
+# define PADDING_FACTOR_Y 0.8
 
 /* isometric projection angle
    angle = pi/6 = 0.5235987755982988 (30 degr)
@@ -93,7 +94,7 @@ typedef struct s_bounds
 
 typedef struct s_view
 {
-	int		scale;
+	double	scale;
 	int		x_offset;
 	int		y_offset;
 }			t_view;
