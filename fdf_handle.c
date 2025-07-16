@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 15:23:55 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 14:26:09 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	handle_close(t_fdf *fdf)
 	mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->mlx_ptr);
 	free_map_data(fdf);
+	free(fdf->view);
 	exit(0);
 	return (0);
 }

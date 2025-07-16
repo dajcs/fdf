@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 11:37:53 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/16 16:39:45 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,16 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 3840x2160	16:9	4K UHD	Premium monitors, TVs, laptops
 */
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
+# define PADDING_FACTOR 0.8
+
+/* isometric projection angle
+   angle = pi/6 = 0.5235987755982988 (30 degr)
+   angle = 0.6154797086703873 -> magic angle: atan(sin(pi/4)) (35.264 degr)
+			rotate around z 45 degr, then rotate around x by arctan(sqrt(2))
+*/
+# define ANGLE 0.6154797086703873
 
 /* Keycodes for Linux */
 # define ESC_KEY 65307
@@ -47,7 +55,7 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 
 /* X11 event masks from <X11/X.h> */
 # define NO_MASK 0
-# define KEY_PRESS_MASK 1L<<0
+# define KEY_PRESS_MASK 1
 
 /*
 Event Name      x_event     x_mask      mlx_..._hook       Description
@@ -55,7 +63,7 @@ KeyPress          2         1L<<0       mlx_key_hook       key pressed down
 KeyRelease        3         1L<<1       (no equivalent)    key was released
 DestroyNotify    17         1L<<17      (no equivalent)    window closed by X
 Expose           12         1L<<15      mlx_expose_hook    part of window
-                                                                to be redrawn
+																to be redrawn
 */
 
 typedef struct s_point
@@ -73,18 +81,39 @@ typedef struct s_map
 	int		**z_grid;
 }			t_map;
 
+typedef struct s_bounds
+{
+	int		min_x;
+	int		max_x;
+	int		min_y;
+	int		max_y;
+	int		width;
+	int		height;
+}			t_bounds;
+
+typedef struct s_view
+{
+	int		scale;
+	int		x_offset;
+	int		y_offset;
+}			t_view;
+
 typedef struct s_fdf
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_map	*map;
+	t_view	*view;
 }			t_fdf;
 
 /* fdf.c */
 void		draw_map(t_fdf *fdf);
 
-/* fdf_utils.c */
+/* fdf_map.c */
 int			read_map(const char *file, t_map *map);
+
+/* fdf_view.c */
+void		setup_view(t_fdf *fdf);
 
 /* fdf_handle.c */
 int			handle_close(t_fdf *fdf);
