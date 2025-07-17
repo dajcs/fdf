@@ -6,12 +6,11 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:32:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 16:19:19 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:32:30 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 {

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 16:19:01 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:31:42 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,31 +74,30 @@ static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
 
 void	draw_map(t_fdf *fdf)
 {
-	int		x;
-	int		y;
+	t_point	t;
 	t_point	p1;
 	t_point	p2;
 
-	y = 0;
-	while (y < fdf->map->height)
+	t.y = 0;
+	while (t.y < fdf->map->height)
 	{
-		x = 0;
-		while (x < fdf->map->width)
+		t.x = 0;
+		while (t.x < fdf->map->width)
 		{
-			p1 = project(x, y, fdf, fdf->view);
-			if (x + 1 < fdf->map->width)
+			p1 = project(t.x, t.y, fdf, fdf->view);
+			if (t.x + 1 < fdf->map->width)
 			{
-				p2 = project((x + 1), y, fdf, fdf->view);
+				p2 = project((t.x + 1), t.y, fdf, fdf->view);
 				bresenham(fdf, p1, p2);
 			}
-			if (y + 1 < fdf->map->height)
+			if (t.y + 1 < fdf->map->height)
 			{
-				p2 = project(x, (y + 1), fdf, fdf->view);
+				p2 = project(t.x, (t.y + 1), fdf, fdf->view);
 				bresenham(fdf, p1, p2);
 			}
-			x++;
+			t.x++;
 		}
-		y++;
+		t.y++;
 	}
 }
 
