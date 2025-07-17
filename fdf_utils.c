@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:32:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 17:25:23 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 17:43:52 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,21 @@ char	*make_title(char *fname, int width, int height)
 	char	*res;
 	char	*w;
 	char	*h;
+	char	*tmp;
 
 	w = ft_itoa(width);
 	h = ft_itoa(height);
 	res = ft_strjoin(fname, "  ");
+	tmp = res;
 	res = ft_strjoin(res, w);
+	free(tmp);
+	tmp = res;
 	res = ft_strjoin(res, "x");
+	free(tmp);
+	tmp = res;
 	res = ft_strjoin(res, h);
+	free(tmp);
+	free(w);
+	free(h);
 	return (res);
 }
