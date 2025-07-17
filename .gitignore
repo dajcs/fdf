@@ -1,2 +1,7 @@
 .vscode
 .test/q.md
+*.o
+libft/*.o
+*.a
+libft/*.a
+fdf
