@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 14:53:10 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 15:59:04 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ static void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, color);
 }
 
+static void	init_bresenham(t_point p1, t_point p2, t_bres *b)
+{
+	b->dx = abs(p2.x - p1.x);
+	b->dy = -abs(p2.y - p1.y);
+	b->sx = 1;
+	if (p1.x > p2.x)
+		b->sx = -1;
+	b->sy = 1;
+	if (p1.y > p2.y)
+		b->sy = -1;
+	b->err = b->dx + b->dy;
+}
+
 // dx positive, dy negative, so later comparison of
 //           e2 >= dy and e2 <= dx work for lines in all directions (quadrants)
 // sx - step x, +1 to right, -1 to left
@@ -27,37 +40,24 @@ static void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 //                            (original Bresenham was err checking against 0.5)
 static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	t_bres	b;
 
-	dx = abs(p2.x - p1.x);
-	dy = -abs(p2.y - p1.y);
-	sx = 1;
-	if (p1.x > p2.x)
-		sx = -1;
-	sy = 1;
-	if (p1.y > p2.y)
-		sy = -1;
-	err = dx + dy;
+	init_bresenham(p1, p2, &b);
 	while (1)
 	{
 		my_mlx_pixel_put(fdf, p1.x, p1.y, p1.color);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
-		e2 = 2 * err;
-		if (e2 >= dy)
+		b.e2 = 2 * b.err;
+		if (b.e2 >= b.dy)
 		{
-			err += dy;
-			p1.x += sx;
+			b.err += b.dy;
+			p1.x += b.sx;
 		}
-		if (e2 <= dx)
+		if (b.e2 <= b.dx)
 		{
-			err += dx;
-			p1.y += sy;
+			b.err += b.dx;
+			p1.y += b.sy;
 		}
 	}
 }
@@ -67,7 +67,7 @@ static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
 	t_point	p;
 	float	raw_x;
 	float	raw_y;
-	int z;
+	int		z;
 
 	z = fdf->map->z_grid[y][x];
 	raw_x = (x - y) * cos(ANGLE);

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 13:37:24 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 15:52:35 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,30 @@ typedef struct s_point
 	int		z;
 	int		color;
 }			t_point;
+
+/*
+struct collecting variables to draw a color gradient line with Bresenham alg.
+  - dx, dy: endpoints difference on x and y
+  - sx, sy: step x, step y, can be +1 or -1 depending on quadrant
+  - total_steps: max_abs(dx, dy)
+  - err: deviation from ideal, updated step-by-step, starts with dx - dy
+  - e2: 2 * err to keep the algorithm in integer domain
+  - current_step: in the name
+  - current_color: color gradient updated step-by-step
+*/
+typedef struct s_bres
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		current_step;
+	int		total_steps;
+	float	progress;
+	int		current_color;
+}			t_bres;
 
 typedef struct s_map
 {

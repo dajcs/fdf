@@ -62,11 +62,11 @@ static int	get_map_dimensions(const char *file, t_map *map)
 // when `,` is in the splitted chunk
 // *color_str = '\0'  // end the string at `,` position then read z and color
 // otherwise read z and put DEFAULT_COLOR
-static void fill_map(char *line, int *z_row, int *color_row)
+static void	fill_map(char *line, int *z_row, int *color_row)
 {
-	char **split;
-	char *color_str;
-	int i;
+	char	**split;
+	char	*color_str;
+	int		i;
 
 	split = ft_split(line, ' ');
 	i = 0;
@@ -100,7 +100,7 @@ int	read_map(const char *file, t_map *map)
 	if (get_map_dimensions(file, map) == -1)
 		return (-1);
 	map->z_grid = (int **)malloc(sizeof(int *) * map->height);
-	map->color_grid = (int**)malloc(sizeof(int *) *map->height);
+	map->color_grid = (int **)malloc(sizeof(int *) * map->height);
 	if (!map->z_grid || !map->color_grid)
 		return (-1);
 	fd = open(file, O_RDONLY);
@@ -113,7 +113,7 @@ int	read_map(const char *file, t_map *map)
 		map->z_grid[i] = (int *)malloc(sizeof(int) * map->width);
 		map->color_grid[i] = (int *)malloc(sizeof(int) * map->width);
 		if (!map->z_grid[i] || !map->color_grid[i])
-			return (-1); //TODO: proper error handling
+			return (-1); // TODO: proper error handling
 		fill_map(line, map->z_grid[i], map->color_grid[i]);
 		free(line);
 		i++;
