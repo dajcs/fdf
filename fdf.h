@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 15:52:35 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:19:35 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ int			handle_key_press(int keycode, t_fdf *fdf);
 
 /* fdf_utils.c */
 int			ft_atoi_hex(char *str);
+void		my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 
 #endif

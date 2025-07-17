@@ -6,17 +6,11 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 15:59:04 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:19:01 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
-{
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, color);
-}
 
 static void	init_bresenham(t_point p1, t_point p2, t_bres *b)
 {

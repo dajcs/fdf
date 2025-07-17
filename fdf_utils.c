@@ -6,11 +6,18 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:32:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 13:40:07 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:19:19 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
+{
+	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, color);
+}
 
 // converts a single hex character to its int value (0-15)
 static int	hex_char_to_int(char c)
