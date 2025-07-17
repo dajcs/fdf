@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:16 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 14:38:59 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:58:13 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	get_map_dimensions(const char *file, t_map *map)
 	close(fd);
 	map->width = width;
 	map->height = height;
-	return (0);
+	fd = open(file, O_RDONLY);
+	return (fd);
 }
 
 // this fills both z and color values for a single row
@@ -91,20 +92,19 @@ static void	fill_map(char *line, int *z_row, int *color_row)
 	free(split);
 }
 
+// TODO: proper error handling
 int	read_map(const char *file, t_map *map)
 {
 	int		fd;
 	char	*line;
 	int		i;
 
-	if (get_map_dimensions(file, map) == -1)
+	fd = get_map_dimensions(file, map);
+	if (fd == -1)
 		return (-1);
 	map->z_grid = (int **)malloc(sizeof(int *) * map->height);
 	map->color_grid = (int **)malloc(sizeof(int *) * map->height);
 	if (!map->z_grid || !map->color_grid)
-		return (-1);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
 		return (-1);
 	i = 0;
 	while (i < map->height)
@@ -113,7 +113,7 @@ int	read_map(const char *file, t_map *map)
 		map->z_grid[i] = (int *)malloc(sizeof(int) * map->width);
 		map->color_grid[i] = (int *)malloc(sizeof(int) * map->width);
 		if (!map->z_grid[i] || !map->color_grid[i])
-			return (-1); // TODO: proper error handling
+			return (-1);
 		fill_map(line, map->z_grid[i], map->color_grid[i]);
 		free(line);
 		i++;
