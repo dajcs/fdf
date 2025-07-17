@@ -6,27 +6,11 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 21:06:10 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:04:20 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// return the minimum of two integers
-static int	min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
-// return the maximum of two integers
-static int	max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
 
 // projects a single point to find its unscaled screen coordinates
 void	raw_project(int x, int y, int z, t_point *p)
@@ -83,10 +67,7 @@ void	setup_view(t_fdf *fdf)
 	{
 		scale_x = (WIN_WIDTH * PADDING_FACTOR_X) / bounds.width;
 		scale_y = (WIN_HEIGHT * PADDING_FACTOR_Y) / bounds.height;
-		if (scale_x < scale_y)
-			fdf->view->scale = scale_x;
-		else
-			fdf->view->scale = scale_y;
+		fdf->view->scale = minf(scale_x, scale_y);
 	}
 	fdf->view->x_offset = (WIN_WIDTH - (bounds.width * fdf->view->scale)) / 2;
 	fdf->view->y_offset = (WIN_HEIGHT - (bounds.height * fdf->view->scale)) / 2;
