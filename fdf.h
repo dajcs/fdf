@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 17:23:14 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 18:09:17 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ typedef struct s_point
 	int		z;
 	int		color;
 }			t_point;
+
+typedef struct s_line
+{
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+	int		color0;
+	int		color1;
+}			t_line;
 
 /*
 struct collecting variables to draw a color gradient line with Bresenham alg.
@@ -151,5 +161,11 @@ int			handle_key_press(int keycode, t_fdf *fdf);
 int			ft_atoi_hex(char *str);
 void		my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 char		*make_title(char *fname, int width, int height);
+
+/* fdf_color.c */
+int			get_r(int color);
+int			get_g(int color);
+int			get_b(int color);
+int			add_rgb(int r, int g, int b);
 
 #endif
