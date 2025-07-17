@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 16:31:42 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 17:25:14 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 	t_map	map;
+	char	*title;
 
 	if (argc != 2)
 	{
@@ -117,7 +118,9 @@ int	main(int argc, char **argv)
 	fdf.map = &map;
 	setup_view(&fdf);
 	fdf.mlx_ptr = mlx_init();
-	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, argv[1]);
+	title = make_title(argv[1], fdf.map->width, fdf.map->height);
+	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
+	free(title);
 	draw_map(&fdf);
 	mlx_hook(fdf.win_ptr, DESTROY_NOTIFY, NO_MASK, &handle_close, &fdf);
 	mlx_key_hook(fdf.win_ptr, &handle_key_press, &fdf);
