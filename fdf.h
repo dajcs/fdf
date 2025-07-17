@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 18:09:17 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 21:53:17 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 1024x768	4:3		XGA		Legacy monitors, tablets
 1280x720	16:9	HD		Entry-level monitors, TVs
 1280x1024	5:4		SXGA	Legacy/business monitors
-1440x900	16:10	WXGA+	Mid-range monitors, laptops
 1366x768	16:9	--		Budget/older laptops, displays
+1440x900	16:10	WXGA+	Mid-range monitors, laptops
 1920x1080	16:9	Full HD	Standard monitors, TVs, laptops
 2560x1440	16:9	QHD		High-end monitors, gaming laptops
 3840x2160	16:9	4K UHD	Premium monitors, TVs, laptops
 */
 
 # define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_HEIGHT 1024
 # define PADDING_FACTOR_X 0.8
-# define PADDING_FACTOR_Y 0.7
+# define PADDING_FACTOR_Y 0.75
 
 /* isometric projection angle
    angle = 0.6154797086703873 -> magic angle: atan(sin(pi/4)) (35.264 degr)
