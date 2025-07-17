@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   fdf_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:16 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/15 13:31:12 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 14:38:59 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,33 @@ static int	get_map_dimensions(const char *file, t_map *map)
 	return (0);
 }
 
-static void	fill_map(char *line, int *row)
+// this fills both z and color values for a single row
+// when `,` is in the splitted chunk
+// *color_str = '\0'  // end the string at `,` position then read z and color
+// otherwise read z and put DEFAULT_COLOR
+static void fill_map(char *line, int *z_row, int *color_row)
 {
-	char	**split;
-	int		i;
+	char **split;
+	char *color_str;
+	int i;
 
 	split = ft_split(line, ' ');
 	i = 0;
 	while (split[i])
 	{
-		row[i] = ft_atoi(split[i]);
+		color_str = ft_strchr(split[i], ',');
+		if (color_str)
+		{
+			*color_str = '\0';
+			color_str++;
+			z_row[i] = ft_atoi(split[i]);
+			color_row[i] = ft_atoi_hex(color_str);
+		}
+		else
+		{
+			z_row[i] = ft_atoi(split[i]);
+			color_row[i] = DEFAULT_COLOR;
+		}
 		free(split[i]);
 		i++;
 	}
@@ -83,7 +100,8 @@ int	read_map(const char *file, t_map *map)
 	if (get_map_dimensions(file, map) == -1)
 		return (-1);
 	map->z_grid = (int **)malloc(sizeof(int *) * map->height);
-	if (!map->z_grid)
+	map->color_grid = (int**)malloc(sizeof(int *) *map->height);
+	if (!map->z_grid || !map->color_grid)
 		return (-1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -93,9 +111,10 @@ int	read_map(const char *file, t_map *map)
 	{
 		line = get_next_line(fd);
 		map->z_grid[i] = (int *)malloc(sizeof(int) * map->width);
-		if (!map->z_grid[i])
-			return (-1);
-		fill_map(line, map->z_grid[i]);
+		map->color_grid[i] = (int *)malloc(sizeof(int) * map->width);
+		if (!map->z_grid[i] || !map->color_grid[i])
+			return (-1); //TODO: proper error handling
+		fill_map(line, map->z_grid[i], map->color_grid[i]);
 		free(line);
 		i++;
 	}

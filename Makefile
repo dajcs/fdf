@@ -6,7 +6,7 @@
 #    By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 13:40:53 by anemet            #+#    #+#              #
-#    Updated: 2025/07/16 14:38:50 by anemet           ###   ########.fr        #
+#    Updated: 2025/07/17 13:37:46 by anemet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Source files for fdf
-SRCS = fdf.c fdf_map.c fdf_handle.c fdf_view.c
+SRCS = fdf.c fdf_map.c fdf_handle.c fdf_view.c fdf_utils.c
 
 # Object files for fdf
 OBJS = $(SRCS:.c=.o)

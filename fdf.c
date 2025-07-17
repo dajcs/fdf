@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 21:09:16 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 14:53:10 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 	err = dx + dy;
 	while (1)
 	{
-		my_mlx_pixel_put(fdf, p1.x, p1.y, 0x00FFFFFF);
+		my_mlx_pixel_put(fdf, p1.x, p1.y, p1.color);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
 		e2 = 2 * err;
@@ -62,16 +62,19 @@ static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 	}
 }
 
-static t_point	project(int x, int y, int z, t_view *view)
+static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
 {
 	t_point	p;
 	float	raw_x;
 	float	raw_y;
+	int z;
 
+	z = fdf->map->z_grid[y][x];
 	raw_x = (x - y) * cos(ANGLE);
 	raw_y = (x + y) * sin(ANGLE) - z;
 	p.x = (int)(raw_x * view->scale + view->x_offset);
 	p.y = (int)(raw_y * view->scale + view->y_offset);
+	p.color = fdf->map->color_grid[y][x];
 	return (p);
 }
 
@@ -88,15 +91,15 @@ void	draw_map(t_fdf *fdf)
 		x = 0;
 		while (x < fdf->map->width)
 		{
-			p1 = project(x, y, fdf->map->z_grid[y][x], fdf->view);
+			p1 = project(x, y, fdf, fdf->view);
 			if (x + 1 < fdf->map->width)
 			{
-				p2 = project((x + 1), y, fdf->map->z_grid[y][x + 1], fdf->view);
+				p2 = project((x + 1), y, fdf, fdf->view);
 				bresenham(fdf, p1, p2);
 			}
 			if (y + 1 < fdf->map->height)
 			{
-				p2 = project(x, (y + 1), fdf->map->z_grid[y + 1][x], fdf->view);
+				p2 = project(x, (y + 1), fdf, fdf->view);
 				bresenham(fdf, p1, p2);
 			}
 			x++;

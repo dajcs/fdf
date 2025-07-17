@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/16 14:26:09 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 15:18:14 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static void	free_map_data(t_fdf *fdf)
 	while (i < fdf->map->height)
 	{
 		free(fdf->map->z_grid[i]);
+		free(fdf->map->color_grid[i]);
 		i++;
 	}
 	free(fdf->map->z_grid);
+	free(fdf->map->color_grid);
 }
 
 int	handle_close(t_fdf *fdf)
@@ -30,8 +32,8 @@ int	handle_close(t_fdf *fdf)
 	mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
 	mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->mlx_ptr);
-	free_map_data(fdf);
 	free(fdf->view);
+	free_map_data(fdf);
 	exit(0);
 	return (0);
 }

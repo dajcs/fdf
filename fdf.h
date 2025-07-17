@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 11:35:12 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:37:24 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 */
 # define ANGLE 0.6154797086703873
 
+// default color: white for points without color info
+# define DEFAULT_COLOR 0xFFFFFF
+
 /* Keycodes for Linux */
 # define ESC_KEY 65307
 
@@ -79,6 +82,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	int		**z_grid;
+	int		**color_grid;
 }			t_map;
 
 typedef struct s_bounds
@@ -118,5 +122,8 @@ void		setup_view(t_fdf *fdf);
 /* fdf_handle.c */
 int			handle_close(t_fdf *fdf);
 int			handle_key_press(int keycode, t_fdf *fdf);
+
+/* fdf_utils.c */
+int			ft_atoi_hex(char *str);
 
 #endif
