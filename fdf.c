@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 17:25:14 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 15:47:38 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	init_bresenham(t_point p1, t_point p2, t_bres *b)
 	if (p1.y > p2.y)
 		b->sy = -1;
 	b->err = b->dx + b->dy;
+	b->x0 = p1.x;
+	b->y0 = p1.y;
 }
 
 // dx positive, dy negative, so later comparison of
@@ -35,11 +37,13 @@ static void	init_bresenham(t_point p1, t_point p2, t_bres *b)
 static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 {
 	t_bres	b;
+	int		color;
 
 	init_bresenham(p1, p2, &b);
 	while (1)
 	{
-		my_mlx_pixel_put(fdf, p1.x, p1.y, p1.color);
+		color = get_color(p1, p2, b);
+		my_mlx_pixel_put(fdf, p1.x, p1.y, color);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
 		b.e2 = 2 * b.err;
