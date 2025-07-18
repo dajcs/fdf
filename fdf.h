@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 16:32:22 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 17:45:24 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_bres
 	int		e2;
 	int		x0;
 	int		y0;
+	int		color;
 }			t_bres;
 
 typedef struct s_map

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:01:23 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 16:22:08 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 17:57:09 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ int	combine_rgb(int r, int g, int b)
 // -b.dy is the p1 - p2 distance on y
 // when p1 starts, ratio is 0, when p1 arrives to p2 then ratio is 1
 // ratio is calculated by deplacement on x + y / total depl. on x + y
+// b.color is set when p1 and p2 have have the same color, we just return that
 int	get_color(t_point p1, t_point p2, t_bres b)
 {
 	float	ratio;
 	int		color;
 
+	if (b.color)
+		return (b.color);
 	ratio = (abs(p1.x - b.x0) + abs(p1.y - b.y0)) / (float)(b.dx - b.dy);
 	color = combine_rgb(
 			(int)(get_r(p1.color) * (1 - ratio) + get_r(p2.color) * ratio),

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 15:47:38 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 17:44:58 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ static void	init_bresenham(t_point p1, t_point p2, t_bres *b)
 	b->err = b->dx + b->dy;
 	b->x0 = p1.x;
 	b->y0 = p1.y;
+	if (p1.color == p2.color)
+		b->color = p1.color;
+	else
+		b->color = 0;
 }
 
 // dx positive, dy negative, so later comparison of
