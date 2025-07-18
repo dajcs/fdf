@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 15:18:14 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 10:54:25 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,30 @@ static void	free_map_data(t_fdf *fdf)
 	}
 	free(fdf->map->z_grid);
 	free(fdf->map->color_grid);
+}
+
+int	malloc_fault(t_map *map, int nr_lines)
+{
+	int	i;
+
+	if (nr_lines == -1)
+		ft_printf("malloc grid allocation failed\n");
+	else
+	{
+		ft_printf("malloc line nr %d allocation failed\n", nr_lines);
+		i = 0;
+		while (i < nr_lines)
+		{
+			free(map->z_grid[i]);
+			free(map->color_grid[i]);
+			i++;
+		}
+	}
+	if (map->z_grid)
+		free(map->z_grid);
+	if (map->color_grid)
+		free(map->color_grid);
+	return (-1);
 }
 
 int	handle_close(t_fdf *fdf)

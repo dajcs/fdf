@@ -4,7 +4,6 @@
 ../fdf ../maps/10-2.fdf&
 ../fdf ../maps/10-70.fdf&
 ../fdf ../maps/20-60.fdf&
-../fdf ../maps/3x3.fdf&
 ../fdf ../maps/4x4.fdf&
 ../fdf ../maps/4x4x.fdf&
 ../fdf ../maps/42.fdf&

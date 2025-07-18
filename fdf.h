@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 21:53:17 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 10:55:56 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 */
 
 # define WIN_WIDTH 1280
-# define WIN_HEIGHT 1024
+# define WIN_HEIGHT 1000
 # define PADDING_FACTOR_X 0.8
 # define PADDING_FACTOR_Y 0.75
 
@@ -156,6 +156,7 @@ void		setup_view(t_fdf *fdf);
 /* fdf_handle.c */
 int			handle_close(t_fdf *fdf);
 int			handle_key_press(int keycode, t_fdf *fdf);
+int			malloc_fault(t_map *map, int nr_lines);
 
 /* fdf_utils.c */
 int			ft_atoi_hex(char *str);
