@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:01:23 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 15:55:19 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 16:22:08 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int	combine_rgb(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-// p1 is between b.p0 and b.p2
-// when p1 is b.p0 ratio is 0, when p1 is b.p2 ratio is 1
+// p1 is progressing towards p2.
+// initial coordinates of p1 saved in b.x0 and b.y0
+// b.dx is the p1 - p2 distance on x
+// -b.dy is the p1 - p2 distance on y
+// when p1 starts, ratio is 0, when p1 arrives to p2 then ratio is 1
+// ratio is calculated by deplacement on x + y / total depl. on x + y
 int	get_color(t_point p1, t_point p2, t_bres b)
 {
 	float	ratio;
