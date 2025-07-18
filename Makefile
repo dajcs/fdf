@@ -6,7 +6,7 @@
 #    By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 13:40:53 by anemet            #+#    #+#              #
-#    Updated: 2025/07/18 12:50:08 by anemet           ###   ########.fr        #
+#    Updated: 2025/07/18 13:20:09 by anemet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Source files for fdf
-SRCS = fdf.c fdf_map.c fdf_handle.c fdf_view.c fdf_utils.c
+SRCS = fdf.c \
+       fdf_map.c \
+       fdf_view.c \
+       fdf_color.c \
+       fdf_utils.c \
+       fdf_handle.c
 
 # Object files for fdf
 OBJ_DIR = obj
@@ -97,7 +102,7 @@ clean:
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@echo "Cleaning MiniLibX..."
 	@$(MAKE) -s -C $(MLX_DIR) clean
-	@echo "Cleaning fdf objects..."
+	@echo "Removing $(OBJ_DIR) directory..."
 	@$(RM) -r $(OBJ_DIR)
 
 # Rule to remove object files and the final executable

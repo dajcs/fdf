@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 10:55:56 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/18 13:13:50 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ KeyPress          2         1L<<0       mlx_key_hook       key pressed down
 KeyRelease        3         1L<<1       (no equivalent)    key was released
 DestroyNotify    17         1L<<17      (no equivalent)    window closed by X
 Expose           12         1L<<15      mlx_expose_hook    part of window
-																to be redrawn
+                                                                to be redrawn
 */
 
 typedef struct s_point
