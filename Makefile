@@ -6,7 +6,7 @@
 #    By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 13:40:53 by anemet            #+#    #+#              #
-#    Updated: 2025/07/17 13:37:46 by anemet           ###   ########.fr        #
+#    Updated: 2025/07/18 12:50:08 by anemet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS = fdf.c fdf_map.c fdf_handle.c fdf_view.c fdf_utils.c
 
 # Object files for fdf
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = obj
+OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
 # Cleanup command
 RM = rm -f
@@ -56,9 +57,9 @@ all: $(NAME)
 
 # Rule to create the final executable
 $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
-	@echo "Linking fdf..."
+	@echo "Linking $@..."
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
-	@echo "fdf compiled successfully!"
+	@echo "$@ compiled successfully!"
 
 # Rule to build the libft library
 $(LIBFT):
@@ -71,8 +72,24 @@ $(MLX_LIB):
 	@$(MAKE) -s -C $(MLX_DIR)
 
 # Rule to compile the fdf source files into object files
-%.o: %.c fdf.h
+# %.o: %.c fdf.h
+# 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# $@ - inside a recipe line it expands to the exact filename of the current
+#                                             target that the rule is building
+# $< - the first prerequisite (handy in single-source compile rules,
+#                                                            e.g. the .c file)
+# $^ - the full list of prerequisites (deduplicated).
+# $? - only the prerequisites that are newer than the target.
+
+# pattern rule - target path + order-only dep on $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c fdf.h | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# make sure obj/ exists before compiling
+# `| $(OBJ_DIR)` order-only prerequisite, `mkdir -p obj` once, no needless rbld
+$(OBJ_DIR):
+	@mkdir -p $@
 
 # Rule to remove object files
 clean:
@@ -81,7 +98,7 @@ clean:
 	@echo "Cleaning MiniLibX..."
 	@$(MAKE) -s -C $(MLX_DIR) clean
 	@echo "Cleaning fdf objects..."
-	@$(RM) $(OBJS)
+	@$(RM) -r $(OBJ_DIR)
 
 # Rule to remove object files and the final executable
 fclean: clean
