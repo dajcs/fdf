@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 17:45:24 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/19 15:55:04 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,18 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 
 /* Keycodes for Linux */
 # define ESC_KEY 65307
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
 
 /* X11 event codes from <X11/X.h> */
 # define KEY_PRESS 2
+# define MOUSE_PRESS 4
 # define DESTROY_NOTIFY 17
 
 /* X11 event masks from <X11/X.h> */
 # define NO_MASK 0
 # define KEY_PRESS_MASK 1
+# define MOUSE_PRESS_MASK 4
 
 /*
 Event Name      x_event     x_mask      mlx_..._hook       Description
@@ -144,6 +148,9 @@ void		setup_view(t_fdf *fdf);
 int			handle_close(t_fdf *fdf);
 int			handle_key_press(int keycode, t_fdf *fdf);
 int			malloc_fault(t_map *map, int nr_lines);
+
+/* fdf_mouse.c */
+int			handle_mouse(int button, int x, int y, t_fdf *fdf);
 
 /* fdf_utils.c */
 int			ft_atoi_hex(char *str);
