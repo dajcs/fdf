@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 15:57:04 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/19 17:45:46 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ int	handle_key_press(int keycode, t_fdf *fdf)
 		handle_close(fdf);
 	}
 	return (0);
+}
+
+void	handle_hooks(t_fdf *fdf)
+{
+	mlx_hook(fdf->win_ptr, DESTROY_NOTIFY, NO_MASK, &handle_close, fdf);
+	mlx_hook(fdf->win_ptr, KEY_PRESS, KEY_PRESS_MASK, &handle_key_press, fdf);
+	mlx_hook(fdf->win_ptr, BUTTON_PRESS, BUTTON_PRESS_MASK, &handle_mouse_press,
+		fdf);
+	mlx_hook(fdf->win_ptr, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
+		&handle_mouse_release, fdf);
+	mlx_hook(fdf->win_ptr, MOTION_NOTIFY, POINTER_MOTION_MASK,
+		&handle_mouse_move, fdf);
+	mlx_loop(fdf->mlx_ptr);
 }
