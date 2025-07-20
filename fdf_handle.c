@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:45:46 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 17:00:41 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int	handle_key_press(int keycode, t_fdf *fdf)
 	{
 		handle_close(fdf);
 	}
+	if (keycode == ARROW_UP || keycode == ARROW_DOWN || keycode == ARROW_LEFT
+		|| keycode == ARROW_RIGHT || keycode == KEY_PLUS
+		|| keycode == KEY_MINUS)
+		handle_rotation(keycode, fdf);
 	return (0);
 }
 

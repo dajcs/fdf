@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 16:43:17 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 16:18:58 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ static void	calculate_xy_range(t_map *map, t_bounds *bounds)
 	}
 }
 
+// setup_view continued
+void	setup_view_25plus(t_fdf *fdf)
+{
+	fdf->view->is_dragging = 0;
+	fdf->view->drag_start_x = 0;
+	fdf->view->drag_start_y = 0;
+	fdf->view->alpha = 0;
+	fdf->view->beta = 0;
+	fdf->view->gamma = 0;
+}
+
 // the main function to setup the final scale and offsets
 void	setup_view(t_fdf *fdf)
 {
@@ -73,7 +84,5 @@ void	setup_view(t_fdf *fdf)
 	fdf->view->y_offset = (WIN_HEIGHT - (bounds.height * fdf->view->scale)) / 2;
 	fdf->view->x_offset -= (bounds.min_x * fdf->view->scale);
 	fdf->view->y_offset -= (bounds.min_y * fdf->view->scale);
-	fdf->view->is_dragging = 0;
-	fdf->view->drag_start_x = 0;
-	fdf->view->drag_start_y = 0;
+	setup_view_25plus(fdf);
 }

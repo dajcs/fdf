@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:43:36 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 17:00:20 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,26 @@ static void	bresenham(t_fdf *fdf, t_point p1, t_point p2)
 	}
 }
 
-static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
+// x_f, y_f, z_f: center point around map's middle
+// rotate the point
+// apply isometric projection
+// apply scaling and offset
+static t_point	project(int x, int y, t_fdf *fdf)
 {
 	t_point	p;
-	float	raw_x;
-	float	raw_y;
-	int		z;
+	float	x_f;
+	float	y_f;
+	float	z_f;
 
-	z = fdf->map->z_grid[y][x];
-	raw_x = (x - y) * cos(ANGLE);
-	raw_y = (x + y) * sin(ANGLE) - z;
-	p.x = (int)(raw_x * view->scale + view->x_offset);
-	p.y = (int)(raw_y * view->scale + view->y_offset);
 	p.color = fdf->map->color_grid[y][x];
+	x_f = x - (fdf->map->width / 2.0f);
+	y_f = y - (fdf->map->height / 2.0f);
+	z_f = fdf->map->z_grid[y][x];
+	rotate_point(&x_f, &y_f, &z_f, fdf->view);
+	p.x = (x_f - y_f) * cos(ANGLE);
+	p.y = (x_f + y_f) * sin(ANGLE) - z_f;
+	p.x = (int)(p.x * fdf->view->scale + fdf->view->x_offset);
+	p.y = (int)(p.y * fdf->view->scale + fdf->view->y_offset);
 	return (p);
 }
 
@@ -92,15 +99,15 @@ void	draw_map(t_fdf *fdf)
 		t.x = 0;
 		while (t.x < fdf->map->width)
 		{
-			p1 = project(t.x, t.y, fdf, fdf->view);
+			p1 = project(t.x, t.y, fdf);
 			if (t.x + 1 < fdf->map->width)
 			{
-				p2 = project((t.x + 1), t.y, fdf, fdf->view);
+				p2 = project((t.x + 1), t.y, fdf);
 				bresenham(fdf, p1, p2);
 			}
 			if (t.y + 1 < fdf->map->height)
 			{
-				p2 = project(t.x, (t.y + 1), fdf, fdf->view);
+				p2 = project(t.x, (t.y + 1), fdf);
 				bresenham(fdf, p1, p2);
 			}
 			t.x++;

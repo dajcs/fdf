@@ -6,7 +6,7 @@
 #    By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 13:40:53 by anemet            #+#    #+#              #
-#    Updated: 2025/07/19 15:58:15 by anemet           ###   ########.fr        #
+#    Updated: 2025/07/20 16:37:53 by anemet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS = fdf.c \
        fdf_color.c \
        fdf_utils.c \
        fdf_handle.c \
-       fdf_mouse.c
+       fdf_mouse.c \
+       fdf_rotate.c
 
 # Object files for fdf
 OBJ_DIR = obj

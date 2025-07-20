@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:46:21 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 16:56:50 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 # define MOUSE_LEFT_BUTTON 1
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
+# define ARROW_LEFT 65361
+# define ARROW_RIGHT 65363
+# define ARROW_UP 65362
+# define ARROW_DOWN 65364
+# define KEY_PLUS 65451
+# define KEY_MINUS 65453
 
 /* X11 event codes from <X11/X.h> */
 # define KEY_PRESS 2
@@ -76,7 +82,7 @@ KeyPress          2         1L<<0       mlx_key_hook       key pressed down
 KeyRelease        3         1L<<1       (no equivalent)    key was released
 DestroyNotify    17         1L<<17      (no equivalent)    window closed by X
 Expose           12         1L<<15      mlx_expose_hook    part of window
-                                                                to be redrawn
+																to be redrawn
 */
 
 typedef struct s_point
@@ -94,6 +100,7 @@ struct collecting variables to draw a color gradient line with Bresenham alg.
   - err: deviation from ideal, updated step-by-step, starts with dx - dy
   - e2: 2 * err to keep the algorithm in integer domain
   - x0, y0: starting coordinates of the line, helps to get progress p1 -> p2
+  - color: value != 0: fix color through the bresenham line, 0: gradient calcul
 */
 typedef struct s_bres
 {
@@ -126,6 +133,7 @@ typedef struct s_bounds
 	int		height;
 }			t_bounds;
 
+// alpha, beta, gamma: X, Y and Z axis rotation
 typedef struct s_view
 {
 	float	scale;
@@ -134,6 +142,9 @@ typedef struct s_view
 	int		is_dragging;
 	int		drag_start_x;
 	int		drag_start_y;
+	float	alpha;
+	float	beta;
+	float	gamma;
 }			t_view;
 
 typedef struct s_fdf
@@ -171,5 +182,9 @@ char		*make_title(char *fname, int width, int height);
 
 /* fdf_color.c */
 int			get_color(t_point p1, t_point p2, t_bres b);
+
+/* fdf_rotate.c */
+void		rotate_point(float *x, float *y, float *z, t_view *view);
+void		handle_rotation(int keycode, t_fdf *fdf);
 
 #endif
