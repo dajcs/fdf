@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:56:38 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:33:55 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 20:41:53 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ int	handle_mouse_left_click(int x, int y, t_fdf *fdf)
 	return (0);
 }
 
+// zoom goal: invariant point under mouse cursor remains in that exact screen
+// position after the zoom is applied
+// map_x -- gets transformed -> screen_x
+// screen_x = (map_x * scale) + x_offset
+// screen_y = (map_y * sacle) + y_offset
+// screen_x, screen_y = mouse_x, mouse_y
+// which map_x is projected under the mouse?
+// map_x = (mouse_x - old_x_offset) / old_scale
+// after zoom if same map_x under the cursor =>
+// (mouse_x - old_x_offset) / old_scale = (mouse_x - new_x_offset) / new_scale
+// mouse_x and mouse_y are the x, y coming with the event
+// new_x_offset = x - (x - old_x_offset) * (new_scale / old_scale)
 int	handle_mouse_press(int button, int x, int y, t_fdf *fdf)
 {
 	float	zoom_factor;
