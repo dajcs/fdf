@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:46:21 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 21:45:08 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 
 /* Keycodes for Linux */
 # define ESC_KEY 65307
+# define BACKSPACE_KEY 65288
 # define MOUSE_LEFT_BUTTON 1
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
@@ -76,7 +77,7 @@ KeyPress          2         1L<<0       mlx_key_hook       key pressed down
 KeyRelease        3         1L<<1       (no equivalent)    key was released
 DestroyNotify    17         1L<<17      (no equivalent)    window closed by X
 Expose           12         1L<<15      mlx_expose_hook    part of window
-                                                                to be redrawn
+																to be redrawn
 */
 
 typedef struct s_point
@@ -126,6 +127,14 @@ typedef struct s_bounds
 	int		height;
 }			t_bounds;
 
+typedef struct s_culling
+{
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+	t_point	p4;
+}			t_culling;
+
 typedef struct s_view
 {
 	float	scale;
@@ -134,6 +143,7 @@ typedef struct s_view
 	int		is_dragging;
 	int		drag_start_x;
 	int		drag_start_y;
+	int		culling_on;
 }			t_view;
 
 typedef struct s_fdf
@@ -152,6 +162,7 @@ int			read_map(const char *file, t_map *map);
 
 /* fdf_view.c */
 void		setup_view(t_fdf *fdf);
+int			is_face_visible(t_point p1, t_point p2, t_point p3);
 
 /* fdf_handle.c */
 int			handle_close(t_fdf *fdf);

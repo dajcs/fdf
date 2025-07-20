@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/19 17:43:36 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 22:11:51 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,30 @@ static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
 
 void	draw_map(t_fdf *fdf)
 {
-	t_point	t;
-	t_point	p1;
-	t_point	p2;
+	t_culling	c;
+	int			x;
+	int			y;
 
-	t.y = 0;
-	while (t.y < fdf->map->height)
+	y = 0;
+	while (y < fdf->map->height - 1)
 	{
-		t.x = 0;
-		while (t.x < fdf->map->width)
+		x = 0;
+		while (x < fdf->map->width - 1)
 		{
-			p1 = project(t.x, t.y, fdf, fdf->view);
-			if (t.x + 1 < fdf->map->width)
+			c.p1 = project(x, y, fdf, fdf->view);
+			c.p2 = project(x + 1, y, fdf, fdf->view);
+			c.p3 = project(x, y + 1, fdf, fdf->view);
+			c.p4 = project(x + 1, y + 1, fdf, fdf->view);
+			if (!fdf->view->culling_on || is_face_visible(c.p1, c.p2, c.p3))
 			{
-				p2 = project((t.x + 1), t.y, fdf, fdf->view);
-				bresenham(fdf, p1, p2);
+				bresenham(fdf, c.p1, c.p2);
+				bresenham(fdf, c.p1, c.p3);
+				bresenham(fdf, c.p2, c.p4);
+				bresenham(fdf, c.p3, c.p4);
 			}
-			if (t.y + 1 < fdf->map->height)
-			{
-				p2 = project(t.x, (t.y + 1), fdf, fdf->view);
-				bresenham(fdf, p1, p2);
-			}
-			t.x++;
+			x++;
 		}
-		t.y++;
+		y++;
 	}
 }
 
