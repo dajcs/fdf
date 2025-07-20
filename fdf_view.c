@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 22:58:08 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 23:21:29 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	setup_view_25plus(t_fdf *fdf)
 	fdf->view->drag_start_x = 0;
 	fdf->view->drag_start_y = 0;
 	fdf->view->culling = 0;
+	fdf->view->color_by_alt = 0;
 }
 
 // the main function to setup the final scale and offsets

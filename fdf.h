@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 22:37:58 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 00:12:48 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 
 /*
 Resolution	Aspect	Ratio	Common Name	Main Usage
@@ -52,6 +53,7 @@ Resolution	Aspect	Ratio	Common Name	Main Usage
 /* Keycodes for Linux */
 # define ESC_KEY 65307
 # define BACKSPACE_KEY 65288
+# define KEY_C 99
 # define MOUSE_LEFT_BUTTON 1
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
@@ -88,6 +90,13 @@ typedef struct s_point
 	int		color;
 }			t_point;
 
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_color;
+
 /*
 struct collecting variables to draw a color gradient line with Bresenham alg.
   - dx, dy: endpoints difference on x and y
@@ -115,6 +124,8 @@ typedef struct s_map
 	int		height;
 	int		**z_grid;
 	int		**color_grid;
+	int		min_z;
+	int		max_z;
 }			t_map;
 
 typedef struct s_bounds
@@ -144,6 +155,7 @@ typedef struct s_view
 	int		drag_start_x;
 	int		drag_start_y;
 	int		culling;
+	int		color_by_alt;
 }			t_view;
 
 typedef struct s_fdf
@@ -159,6 +171,10 @@ void		draw_map(t_fdf *fdf);
 
 /* fdf_map.c */
 int			read_map(const char *file, t_map *map);
+
+/* fdf_alt.c */
+int			calculate_z_range(t_map *map);
+int			calculate_altitude_color(int z, t_map *map);
 
 /* fdf_view.c */
 void		setup_view(t_fdf *fdf);
@@ -181,6 +197,10 @@ void		my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 char		*make_title(char *fname, int width, int height);
 
 /* fdf_color.c */
+int			get_r(int color);
+int			get_g(int color);
+int			get_b(int color);
+int			combine_rgb(int r, int g, int b);
 int			get_color(t_point p1, t_point p2, t_bres b);
 
 #endif

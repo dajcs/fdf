@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:16 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/18 10:46:45 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 23:25:59 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,5 @@ int	read_map(const char *file, t_map *map)
 		i++;
 	}
 	close(fd);
-	return (0);
+	return (calculate_z_range(map));
 }

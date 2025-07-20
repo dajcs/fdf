@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 23:01:07 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 00:13:25 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ static t_point	project(int x, int y, t_fdf *fdf, t_view *view)
 	raw_y = (x + y) * sin(ANGLE) - z;
 	p.x = (int)(raw_x * view->scale + view->x_offset);
 	p.y = (int)(raw_y * view->scale + view->y_offset);
-	p.color = fdf->map->color_grid[y][x];
+	if (view->color_by_alt)
+		p.color = calculate_altitude_color(z, fdf->map);
+	else
+		p.color = fdf->map->color_grid[y][x];
 	return (p);
 }
 
