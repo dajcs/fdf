@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:20:04 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 22:03:32 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 22:58:08 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	setup_view_25plus(t_fdf *fdf)
 	fdf->view->is_dragging = 0;
 	fdf->view->drag_start_x = 0;
 	fdf->view->drag_start_y = 0;
-	fdf->view->culling_on = 0;
+	fdf->view->culling = 0;
 }
 
 // the main function to setup the final scale and offsets
@@ -85,6 +85,14 @@ void	setup_view(t_fdf *fdf)
 
 // 2D cross-product (shoelace formula component)
 // checks the "winding order" of the projected triangle
+// vector A: p1 -> p2 [p2.x - p1.x, p2.y - p1.y]
+// vector B: p1 -> p3 [p3.x - p1.x, p3.y - p1.y]
+// short: A = (Ax, Ay);  B = (Bx, By)
+// val = (Ax * By) - (Bx * Ay)
+// val is twice the **signed** area of triangle (p1, p2, p3)
+// if val > 0 then p1 -> p2 -> p3 have same winding order (e.g., clockwise)
+// if val < 0 then the vertices have opposite winding order (e.g., counter-clk)
+// if val = 0 then the 3 points are on a straingt line (we are looking at edge)
 int	is_face_visible(t_point p1, t_point p2, t_point p3)
 {
 	int	val;

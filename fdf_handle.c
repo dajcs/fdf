@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 22:02:24 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 22:37:58 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	handle_key_press(int keycode, t_fdf *fdf)
 	}
 	else if (keycode == BACKSPACE_KEY)
 	{
-		fdf->view->culling_on = !fdf->view->culling_on;
+		fdf->view->culling = !fdf->view->culling;
 		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 		draw_map(fdf);
 	}

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 21:45:08 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 22:37:58 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ typedef struct s_view
 	int		is_dragging;
 	int		drag_start_x;
 	int		drag_start_y;
-	int		culling_on;
+	int		culling;
 }			t_view;
 
 typedef struct s_fdf

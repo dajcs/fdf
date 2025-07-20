@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 22:11:51 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/20 23:01:07 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	draw_map(t_fdf *fdf)
 			c.p2 = project(x + 1, y, fdf, fdf->view);
 			c.p3 = project(x, y + 1, fdf, fdf->view);
 			c.p4 = project(x + 1, y + 1, fdf, fdf->view);
-			if (!fdf->view->culling_on || is_face_visible(c.p1, c.p2, c.p3))
+			if (!fdf->view->culling || is_face_visible(c.p1, c.p2, c.p3))
 			{
 				bresenham(fdf, c.p1, c.p2);
 				bresenham(fdf, c.p1, c.p3);
