@@ -6,7 +6,7 @@
 #    By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 13:40:53 by anemet            #+#    #+#              #
-#    Updated: 2025/07/20 23:26:23 by anemet           ###   ########.fr        #
+#    Updated: 2025/07/21 09:02:11 by anemet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,9 @@ LDFLAGS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # Default rule
 all: $(NAME)
+
+# The bonus rule -- same as 'all'
+bonus: $(NAME)
 
 # Rule to create the final executable
 $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
