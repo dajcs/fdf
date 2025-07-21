@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:18:08 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/21 00:11:04 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 14:20:59 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	malloc_fault(t_map *map, int nr_lines)
 
 int	handle_close(t_fdf *fdf)
 {
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->img_ptr);
 	mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
 	mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->mlx_ptr);
@@ -71,14 +72,12 @@ int	handle_key_press(int keycode, t_fdf *fdf)
 	if (keycode == BACKSPACE_KEY)
 	{
 		fdf->view->culling = !fdf->view->culling;
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		draw_map(fdf);
+		render_frame(fdf);
 	}
 	if (keycode == KEY_C)
 	{
 		fdf->view->color_by_alt = !fdf->view->color_by_alt;
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		draw_map(fdf);
+		render_frame(fdf);
 	}
 	return (0);
 }
@@ -93,5 +92,6 @@ void	handle_hooks(t_fdf *fdf)
 		&handle_mouse_release, fdf);
 	mlx_hook(fdf->win_ptr, MOTION_NOTIFY, POINTER_MOTION_MASK,
 		&handle_mouse_move, fdf);
+	render_frame(fdf);
 	mlx_loop(fdf->mlx_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 23:22:16 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/21 00:08:29 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 13:47:23 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,15 @@ int	calculate_altitude_color(int z, t_map *map)
 		c.b = lerp_color(get_b(white), get_b(red), (ratio - 0.5f) * 2.0f);
 	}
 	return (combine_rgb(c.r, c.g, c.b));
+}
+
+// central rendering function
+int	render_frame(t_fdf *fdf)
+{
+	ft_bzero(fdf->img->addr, WIN_WIDTH * WIN_HEIGHT * (fdf->img->bits_per_pixel
+			/ 8));
+	draw_map(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img->img_ptr, 0,
+		0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:15:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/21 00:13:25 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 13:57:30 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 	t_map	map;
+	t_img	img;
 	char	*title;
 
 	if (argc != 2)
@@ -127,12 +128,15 @@ int	main(int argc, char **argv)
 	if (read_map(argv[1], &map) == -1)
 		return (1);
 	fdf.map = &map;
+	fdf.img = &img;
 	setup_view(&fdf);
 	fdf.mlx_ptr = mlx_init();
 	title = make_title(argv[1], fdf.map->width, fdf.map->height);
 	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
 	free(title);
-	draw_map(&fdf);
+	img.img_ptr = mlx_new_image(fdf.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
+			&img.line_length, &img.endian);
 	handle_hooks(&fdf);
 	return (0);
 }

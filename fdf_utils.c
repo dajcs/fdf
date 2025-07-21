@@ -6,16 +6,25 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:32:52 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/17 17:43:52 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 13:39:58 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+// dst = ... // calculate the memory address for the pixel (x,y)
+// *(unsigned int *)dst = color;
+	// write the color integer to the calculated address
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 {
+	char	*dst;
+
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, color);
+	{
+		dst = fdf->img->addr + (y * fdf->img->line_length + x
+				* (fdf->img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
 // converts a single hex character to its int value (0-15)

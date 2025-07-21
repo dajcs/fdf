@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:00:39 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/21 00:12:48 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 14:03:05 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
+# include <limits.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <limits.h>
 
 /*
 Resolution	Aspect	Ratio	Common Name	Main Usage
@@ -158,12 +158,22 @@ typedef struct s_view
 	int		color_by_alt;
 }			t_view;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img;
+
 typedef struct s_fdf
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_map	*map;
 	t_view	*view;
+	t_img	*img;
 }			t_fdf;
 
 /* fdf.c */
@@ -175,6 +185,7 @@ int			read_map(const char *file, t_map *map);
 /* fdf_alt.c */
 int			calculate_z_range(t_map *map);
 int			calculate_altitude_color(int z, t_map *map);
+int			render_frame(t_fdf *fdf);
 
 /* fdf_view.c */
 void		setup_view(t_fdf *fdf);

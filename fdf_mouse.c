@@ -6,7 +6,7 @@
 /*   By: anemet <anemet@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:56:38 by anemet            #+#    #+#             */
-/*   Updated: 2025/07/20 20:41:53 by anemet           ###   ########.fr       */
+/*   Updated: 2025/07/21 14:18:31 by anemet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	handle_mouse_press(int button, int x, int y, t_fdf *fdf)
 	fdf->view->y_offset = y - (y - fdf->view->y_offset) * (new_scale
 			/ old_scale);
 	fdf->view->scale = new_scale;
-	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-	draw_map(fdf);
+	render_frame(fdf);
 	return (0);
 }
 
@@ -80,8 +79,7 @@ int	handle_mouse_move(int x, int y, t_fdf *fdf)
 		fdf->view->y_offset += delta_y;
 		fdf->view->drag_start_x = x;
 		fdf->view->drag_start_y = y;
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		draw_map(fdf);
+		render_frame(fdf);
 	}
 	return (0);
 }
